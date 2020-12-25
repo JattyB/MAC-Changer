@@ -8,4 +8,4 @@ Follow the steps:-
   * Clone the repo `sudo git clone https://github.com/JattyB/MAC-Changer.git`.
   * Change directory to the repo `cd MAC-Changer/`.
   * Give the executable permission to the python file `sudo chmod +x macchanger.py`
-  * Run the file with using python3 `sudo python3 macchanger.py -h` or ``sudo ./macchanger.py -h``
+  * Run the file with using python3 `sudo python3 macchanger.py -h` or `sudo ./macchanger.py -h`
