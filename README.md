@@ -7,4 +7,4 @@ Follow the steps:-
   * Clone the repo `git clone https://github.com/JattyB/MAC-Changer/`.
   * Change directory to the repo `cd MAC-Changer/`.
   * Give the executable permission to the python file `chmod +x macchanger.py`
-  * Run the file with using python3 `python3 macchanger.py -h`
+  * Run the file with using python3 `python3 macchanger.py -h` or `./macchanger.py -h`
