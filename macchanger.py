@@ -5,8 +5,12 @@ import argparse
 import re
 from art import *
 
+author="------> Created By: JattyB"
+strin1 = "|"
 print("\33[33m")
 tprint("MAC-CHANGER", "rand")
+print(f"{strin1 : >75}")
+print(f"{author : >100}")
 print("\33[39m")
 
 def get_info():
@@ -27,13 +31,13 @@ def get_info():
 	return args
 
 def get_mac(interface):
-	result = str(subprocess.check_output(["ifconfig", interface]))
+	result = str(subprocess.check_output(["ip","addr","show", interface]))
 	macadd = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", result)
 
 	if macadd:
 		return macadd[0]
 	else:
-		print("\n[-] Could not find MAC Address")
+		print("\n[-] Could not find MAC Address for the give interface")
 
 def main():
 	
@@ -43,6 +47,8 @@ def main():
 	vmac = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", nmac)
 	
 	current_mac = get_mac(inter)
+	with open("/tmp/last_mac.txt",'w') as f:
+		f.write(current_mac)
 	print("\n[+] Current MAC Address: " + str(current_mac))
 
 	if len(nmac) != 17:
@@ -54,11 +60,14 @@ def main():
 	elif not vmac:
 		print("[-] Enter a valid MAC Address!")
 
+	elif current_mac == nmac:
+		print("[-] MAC Address already in use")
+
 	else:
 		print("[+] Changing MAC Address for " + inter + " to " + nmac)
-		subprocess.call(["ifconfig" , inter , "down"])
-		subprocess.call(["ifconfig" , inter , "hw", "ether", nmac])
-		subprocess.call(["ifconfig" , inter , "up"])
+		subprocess.call(["ip","link","set","dev" , inter , "down"])
+		subprocess.call(["ip","link","set","dev" , inter , "address", nmac])
+		subprocess.call(["ip","link","set","dev" , inter , "up"])
 	
 		current_mac = get_mac(inter)
 
